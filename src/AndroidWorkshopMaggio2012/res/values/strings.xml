@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="hello">Hello World, MainActivity!</string>
+	<string name="app_name">AndroidWorkshopMaggio2012</string>
+	<string name="vai">Vai</string>
+	<string name="ferma">Ferma</string>
+	<string name="ricarica">Ricarica</string>
+	<string name="home_page">http://perugia.gtugs.org/</string>
+
+</resources>
