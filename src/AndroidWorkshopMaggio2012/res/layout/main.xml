@@ -11,7 +11,7 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentTop="true"
-		android:src="@drawable/back" />
+		android:src="@drawable/back" android:onClick="inDietro" />
 
 	<ImageView
 		android:id="@+id/forward"
@@ -19,21 +19,21 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_toRightOf="@+id/back"
-		android:src="@drawable/forward" />
+		android:src="@drawable/forward" android:onClick="inAvanti"/>
 
 	<Button
 		android:id="@+id/stop"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
-		android:text="@string/ferma" android:layout_toLeftOf="@id/reload"/>
+		android:text="@string/ferma" android:layout_toLeftOf="@+id/reload" android:onClick="ferma"/>
 
 	<Button
 		android:id="@+id/reload"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
-		android:text="@string/ricarica" android:layout_alignParentRight="true"/>
+		android:text="@string/ricarica" android:layout_alignParentRight="true" android:onClick="ricarica"/>
 
 	<Button
 		android:id="@+id/go"
@@ -41,14 +41,14 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
 		android:layout_below="@id/reload"
-		android:text="@string/vai"/>
+		android:text="@string/vai" android:onClick="vai"/>
 
 	<EditText
 		android:id="@+id/url"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
-		android:layout_toLeftOf="@+id/go" android:layout_below="@id/reload">
+		android:layout_toLeftOf="@+id/go" android:layout_below="@id/reload" android:text="@string/home_page">
 
 		<requestFocus />
 	</EditText>
