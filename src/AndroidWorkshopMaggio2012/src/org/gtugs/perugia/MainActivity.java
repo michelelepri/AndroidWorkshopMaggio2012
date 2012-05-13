@@ -1,15 +1,18 @@
 package org.gtugs.perugia;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
 	private WebView _webView;
-
 	private EditText _url;
 
 	/** Called when the activity is first created. */
@@ -18,6 +21,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		_webView = (WebView) findViewById(R.id.webview);
+		
+		// Viene abilitato il javascript
+		_webView.getSettings().setJavaScriptEnabled(true);
 
 		/*
 		 * Override del metodo UrlLoading per far aprire i link selezionati
@@ -31,6 +37,22 @@ public class MainActivity extends Activity {
 		});
 
 		_url = (EditText) findViewById(R.id.url);
+		_url.setOnKeyListener(new OnKeyListener() {
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction() == KeyEvent.ACTION_DOWN) {
+					switch (keyCode) {
+					case KeyEvent.KEYCODE_ENTER:
+						_webView.loadUrl(_url.getText().toString());
+						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(_url.getWindowToken(), 0);
+						return true;
+					default:
+						break;
+					}
+				}
+				return false;
+			}
+		});
 	}
 
 	/*
@@ -39,15 +61,16 @@ public class MainActivity extends Activity {
 	 * @see android.app.Activity#onResume()
 	 */
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 
-		// abilito il javascript
-		_webView.getSettings().setJavaScriptEnabled(true);
-
-		// carico l'url
+		// Ricarico l'url
 		_webView.loadUrl(_url.getText().toString());
 	}
+	
+	/*
+	 * Metodi per gestire la WebView
+	 */
 
 	public void vai(View v) {
 		_webView.loadUrl(_url.getText().toString());
