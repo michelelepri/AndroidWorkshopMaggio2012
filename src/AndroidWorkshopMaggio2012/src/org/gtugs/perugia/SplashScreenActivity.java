@@ -8,10 +8,10 @@ import android.view.MotionEvent;
 
 public class SplashScreenActivity extends Activity {
 	// Flag per determinare se è attivo o meno lo splash
-	private boolean _attivo = true;
+	private boolean attivo = true;
 
 	// Durata dello splash
-	private int _tempoSpash = 5000;
+	private int tempoSplash = 5000;
 
 	private Thread splashTread = null;
 
@@ -26,7 +26,7 @@ public class SplashScreenActivity extends Activity {
 			public void run() {
 				try {
 					int tempoPassato = 0;
-					while (_attivo && (tempoPassato < _tempoSpash)) {
+					while (attivo && (tempoPassato < tempoSplash)) {
 						sleep(100);
 						tempoPassato += 100;
 					}
@@ -48,7 +48,7 @@ public class SplashScreenActivity extends Activity {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			_attivo = false;
+			attivo = false;
 		}
 		return super.onTouchEvent(event);
 	}

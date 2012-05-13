@@ -15,15 +15,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private WebView _webView;
-	private EditText _url;
-	private MainActivity _activity = null;
+	private WebView webView;
+	private EditText urlBox;
+	private MainActivity activity = null;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		_activity = this;
+		activity = this;
 
 		// Richiede la feature per mostrare la barra di progressione
 		requestWindowFeature(Window.FEATURE_PROGRESS);
@@ -31,8 +31,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 		setProgressBarVisibility(true);
 
-		_webView = (WebView) findViewById(R.id.webview);
-		_webView.setWebViewClient(new WebViewClient() {
+		webView = (WebView) findViewById(R.id.webview);
+		webView.setWebViewClient(new WebViewClient() {
 			// Carica i link nell'app anziché nel browser standard
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				view.loadUrl(url);
@@ -42,21 +42,21 @@ public class MainActivity extends Activity {
 			// Notifica gli errori di caricamento tramite TOAST
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
-				Toast.makeText(_activity, "Oh no! " + description,
+				Toast.makeText(activity, "Oh no! " + description,
 						Toast.LENGTH_SHORT).show();
 			}
 		});
 
-		_webView.setWebChromeClient(new WebChromeClient() {
+		webView.setWebChromeClient(new WebChromeClient() {
 			// Barra del titolo come progressione nel caricamento della pagina
 			public void onProgressChanged(WebView view, int progress) {
-				_activity.setProgress(progress * 100);
+				activity.setProgress(progress * 100);
 			}
 
 			// Gestisce gli alert Javascript
 			public boolean onJsAlert(WebView view, String url, String message,
 					final android.webkit.JsResult result) {
-				Toast.makeText(_activity.getApplicationContext(), message, 3000)
+				Toast.makeText(activity.getApplicationContext(), message, 3000)
 						.show();
 				result.confirm();
 				return true;
@@ -64,17 +64,17 @@ public class MainActivity extends Activity {
 		});
 
 		// Viene abilitato il javascript
-		_webView.getSettings().setJavaScriptEnabled(true);
+		webView.getSettings().setJavaScriptEnabled(true);
 
-		_url = (EditText) findViewById(R.id.url);
-		_url.setOnKeyListener(new OnKeyListener() {
+		urlBox = (EditText) findViewById(R.id.url);
+		urlBox.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getAction() == KeyEvent.ACTION_DOWN) {
 					switch (keyCode) {
 					case KeyEvent.KEYCODE_ENTER:
-						_webView.loadUrl(_url.getText().toString());
+						webView.loadUrl(urlBox.getText().toString());
 						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(_url.getWindowToken(), 0);
+						imm.hideSoftInputFromWindow(urlBox.getWindowToken(), 0);
 						return true;
 					default:
 						break;
@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
 		super.onResume();
 
 		// Ricarico l'url
-		_webView.loadUrl(_url.getText().toString());
+		webView.loadUrl(urlBox.getText().toString());
 	}
 
 	/*
@@ -103,22 +103,22 @@ public class MainActivity extends Activity {
 	 */
 
 	public void vai(View v) {
-		_webView.loadUrl(_url.getText().toString());
+		webView.loadUrl(urlBox.getText().toString());
 	}
 
 	public void ricarica(View v) {
-		_webView.reload();
+		webView.reload();
 	}
 
 	public void ferma(View v) {
-		_webView.stopLoading();
+		webView.stopLoading();
 	}
 
 	public void inDietro(View v) {
-		_webView.goBack();
+		webView.goBack();
 	}
 
 	public void inAvanti(View v) {
-		_webView.goForward();
+		webView.goForward();
 	}
 }
